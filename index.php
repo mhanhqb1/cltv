@@ -1,37 +1,28 @@
-<?php get_header(); ?>
-<?php $wpc_course = new WPC_Courses(); ?>
-<div class="wpc-container">
-    <div class="wpc-row">
-        <div class="wpc-sidebar wpc-left-sidebar">
-            <?php echo $wpc_course->get_course_category_list(); ?>
-        </div>
-        <div id="courses-wrapper" class="wpc-sidebar-content">
-            
-            <?php include 'template-parts/course-filters.php'; ?>
+<?php
 
-            <?php
-                if(have_posts()){
-                    while(have_posts()){
-                        the_post();
-                        echo '<div id="wpc-archive-course-' . get_the_ID() . '" class="course-container wpc-light-box">';
-                            echo '<div class="wpc-video-wrapper">';
-                                include 'template-parts/course-video.php';
-                            echo '</div>';
-                            include 'template-parts/course-details.php';
-                            include 'template-parts/course-meta.php';
-                        echo '</div>';
-                    }
-                    wp_reset_postdata();
-                    echo '<br><div class="wpc-paginate-links">' . paginate_links() . '</div>';
+/**
+ * ====================================================================================
+ *                           Google Drive Proxy Player (c) CodySeller
+ * ----------------------------------------------------------------------------------
+ * @copyright This software is exclusively sold at codester.com. If you have downloaded this
+ *  from another site or received it from someone else than me, then you are engaged
+ *  in an illegal activity. You must delete this software immediately or buy a proper
+ *  license from https://www.codester.com/codyseller?ref=codyseller.
+ *
+ *  Thank you for your cooperation and don't hesitate to contact me if anything :)
+ * ====================================================================================
+ *
+ * @author CodySeller (http://codyseller.com)
+ * @link http://codyseller.com
+ * @license http://codyseller.com/license
+ */
 
-                    $wpc_enable_powered_by = get_option('wpc_enable_powered_by');
 
-                    if($wpc_enable_powered_by == 'true') {
-                        echo '<div id="wpc-powered-by">' . __("Courses Powered by", 'wp-courses') . ' ' . '<a href="https://wpcoursesplugin.com">WP Courses</a></div>';
-                    }
-                }
-            ?>
-        </div>
-    </div>
-</div>
-<?php get_footer(); ?>
+if(!file_exists("includes/config.php")){
+  header("Location: install");
+  exit;
+}
+
+require_once(__DIR__.'/includes/config.php');
+
+$app->run();
