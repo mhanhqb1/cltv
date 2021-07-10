@@ -627,3 +627,20 @@ function twentytwentyone_add_ie_class() {
 	<?php
 }
 add_action( 'wp_footer', 'twentytwentyone_add_ie_class' );
+
+/*
+* HA function
+*/
+function ha_get_courses() {
+	$course_args = array(
+		'post_type'			=> 'course',
+		'nopaging' 			=> true,
+		'order'				=> 'ASC',
+		'orderby'			=> 'menu_order',
+		'post_status'		=> 'publish',
+	);
+	$course_query = new WP_Query($course_args);
+	echo '<pre>';
+	print_r($course_query);
+	die();
+}

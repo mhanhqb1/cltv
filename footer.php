@@ -15,7 +15,7 @@
 		</main><!-- #main -->
 	</div><!-- #content -->
 
-	<?php get_template_part( 'template-parts/footer/footer-widgets' ); ?>
+	<?php //get_template_part( 'template-parts/footer/footer-widgets' ); ?>
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>

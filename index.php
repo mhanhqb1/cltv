@@ -6,13 +6,19 @@
             <?php echo $wpc_course->get_course_category_list(); ?>
         </div>
         <div id="courses-wrapper" class="wpc-sidebar-content">
-            
-            <?php include 'template-parts/course-filters.php'; ?>
-
             <?php
-                if(have_posts()){
-                    while(have_posts()){
-                        the_post();
+                $course_args = array(
+                    'post_type'         => 'course',
+                    'nopaging'          => true,
+                    'order'             => 'ASC',
+                    'orderby'           => 'menu_order',
+                    'post_status'       => 'publish',
+                );
+                $course_query = new WP_Query($course_args);
+                if($course_query->have_posts()){
+                    echo '<div class="row">';
+                    while($course_query->have_posts()){
+                        $course_query->the_post();
                         echo '<div id="wpc-archive-course-' . get_the_ID() . '" class="course-container wpc-light-box">';
                             echo '<div class="wpc-video-wrapper">';
                                 include 'template-parts/course-video.php';
@@ -22,13 +28,8 @@
                         echo '</div>';
                     }
                     wp_reset_postdata();
+                    echo '</div>';
                     echo '<br><div class="wpc-paginate-links">' . paginate_links() . '</div>';
-
-                    $wpc_enable_powered_by = get_option('wpc_enable_powered_by');
-
-                    if($wpc_enable_powered_by == 'true') {
-                        echo '<div id="wpc-powered-by">' . __("Courses Powered by", 'wp-courses') . ' ' . '<a href="https://wpcoursesplugin.com">WP Courses</a></div>';
-                    }
                 }
             ?>
         </div>
